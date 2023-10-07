@@ -9,7 +9,6 @@ int main(int argc, char** argv)
     while(ros::ok())
     {
         ros::spinOnce();    //execute ham` callback
-        rb_controller.execute();
         Loop.sleep();
 
     }

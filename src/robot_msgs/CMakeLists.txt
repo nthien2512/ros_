@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   std_msgs
   visualization_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -102,9 +103,9 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES robot_msgs
-#  CATKIN_DEPENDS geometry_msgs nav_msgs sensor_msgs std_msgs visualization_msgs
+  INCLUDE_DIRS include
+  # LIBRARIES robot_msgs
+  CATKIN_DEPENDS geometry_msgs nav_msgs sensor_msgs std_msgs visualization_msgs message_runtime
 #  DEPENDS system_lib
 )
 
@@ -182,6 +183,11 @@ include_directories(
 #   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
 #   FILES_MATCHING PATTERN "*.h"
 #   PATTERN ".svn" EXCLUDE
+# )
+
+# install(DIRECTORY include/${PROJECT_NAME}/
+#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+#   FILES_MATCHING PATTERN "*.h"
 # )
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
