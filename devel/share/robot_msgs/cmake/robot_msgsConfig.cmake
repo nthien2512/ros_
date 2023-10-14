@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(robot_msgs_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/hoangdung/ws_utc/ws_utc/devel/include " STREQUAL " ")
+if(NOT "/home/hoangdung/ws_utc/ws_utc/devel/include;/home/hoangdung/ws_utc/ws_utc/src/robot_msgs/include " STREQUAL " ")
   set(robot_msgs_INCLUDE_DIRS "")
-  set(_include_dirs "/home/hoangdung/ws_utc/ws_utc/devel/include")
+  set(_include_dirs "/home/hoangdung/ws_utc/ws_utc/devel/include;/home/hoangdung/ws_utc/ws_utc/src/robot_msgs/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -185,7 +185,7 @@ foreach(t ${robot_msgs_EXPORTED_TARGETS})
   endif()
 endforeach()
 
-set(depends "")
+set(depends "geometry_msgs;nav_msgs;sensor_msgs;std_msgs;visualization_msgs;message_runtime")
 foreach(depend ${depends})
   string(REPLACE " " ";" depend_list ${depend})
   # the package name of the dependency must be kept in a unique variable so that it is not overwritten in recursive calls

@@ -1,6 +1,11 @@
 #include "ros/ros.h"
+#include <tf2_ros/transform_listener.h>
+#include <tf2/LinearMath/Transform.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+
 #include <nav_msgs/Path.h>
 #include <geometry_msgs/Pose2D.h>
+#include <geometry_msgs/TransformStamped.h>
 #include <geometry_msgs/Twist.h>
 #include <std_srvs/SetBool.h>
 #include <robot_msgs/MoveToPoseAction.h>
@@ -12,18 +17,22 @@ class RobotController
         ros::NodeHandle nh_;
         nav_msgs::Path path_;
         geometry_msgs::Pose2D robot_pose_;
-        ros::Subscriber path_sub_, robot_pose_sub_;
+        ros::Subscriber path_sub_;
         ros::Publisher cmd_vel_pub_;
         ros::ServiceServer enable_srv;
         bool enable_moving = false;
 
+        tf2_ros::Buffer robot_tf_buffer_;
+        tf2_ros::TransformListener robot_listener_;
+
         actionlib::SimpleActionServer<robot_msgs::MoveToPoseAction> as_;
 
     public:
-        RobotController() : as_(nh_, "pose_control", boost::bind(&RobotController::executeCB, this, _1), false)
+        RobotController() 
+        : as_(nh_, "pose_control", boost::bind(&RobotController::executeCB, this, _1), false), 
+          robot_listener_(robot_tf_buffer_)
         {
             path_sub_= nh_.subscribe("path", 1, &RobotController::pathCB, this);
-            robot_pose_sub_ = nh_.subscribe("robot_pose", 1, &RobotController::robotposeCB, this);
 
             cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("cmd_vel", 1);
             enable_srv = nh_.advertiseService("enable_moving", &RobotController::enableCB, this);
@@ -39,14 +48,9 @@ class RobotController
             path_=path;
         }
 
-        void robotposeCB(const geometry_msgs::Pose2D& robotpose)
-        {
-            robot_pose_ = robotpose;
-            ROS_INFO_STREAM("Robot pose: "<<robotpose.x<<"-"<<robotpose.y);
-        }
-
         void executeCB(const robot_msgs::MoveToPoseGoalConstPtr& goal)
         {
+            enable_moving = true;
             ros::Rate loop_rate(20);
             double dx = goal->target_pose.x - robot_pose_.x;
             double dy = goal->target_pose.y - robot_pose_.y;
@@ -70,12 +74,12 @@ class RobotController
                     break;
                 }
 
-                double distance_tol = 0.02;
-                double angle_tol = 0.02;
+                double distance_tol = 0.015;
+                double angle_tol = 0.015;
                 double angle_diff = goal->target_pose.theta - robot_pose_.theta;
                 angle_diff = norm_angle(angle_diff);
 
-                if (current_distance < distance_tol && angle_diff < angle_tol) {
+                if (current_distance < distance_tol && fabs(angle_diff) < angle_tol) {
                     robot_msgs::MoveToPoseResult res;
                     res.success = true;
                     res.distance_error = current_distance;
@@ -87,6 +91,7 @@ class RobotController
 
                 loop_rate.sleep();
             }
+            enable_moving = false;
         }
 
         bool enableCB(std_srvs::SetBool::Request& req,
@@ -104,10 +109,14 @@ class RobotController
             double rho = sqrt(dx*dx + dy*dy);
             double beta = atan2(dy,dx);
             double alpha = beta - robot_pose_.theta;
-            const double gamma = 0.5;
-            const double k = 1.0,h = 1.0;
-            double u = gamma*tanh(rho)*cos(alpha);
-            double omega = k* alpha +gamma*sin(alpha)/alpha * tanh(rho)/rho *cos(alpha)*(alpha - h*beta);
+            const double gamma = 2.0;
+            const double k = 1.0,h = 0.05;
+            double u = gamma*tanh(rho)*pow(cos(alpha),100);
+            double omega = k* alpha + gamma*sin(alpha)/alpha * tanh(rho)/rho *cos(alpha)*(alpha - h*beta);
+            if (rho < 0.01) {
+                u = 0.0;
+                omega = -k * (robot_pose_.theta - target.theta);
+            }
 
             geometry_msgs::Twist cmd_vel;
             cmd_vel.linear.x = u;
@@ -122,11 +131,11 @@ class RobotController
             const double pi = 3.14159;
 
             while (in > pi) {
-                in -= pi;
+                in -= 2 * pi;
             }
 
-            while (in < pi) {
-                in += pi;
+            while (in < -pi) {
+                in += 2 * pi;
             }
 
             return in;
@@ -134,20 +143,38 @@ class RobotController
 
         void execute()
         {
+            if (enable_moving)
+                return;
             //code cua bo dieu khien
             geometry_msgs::Twist vel;
-            if (enable_moving) {
-                //van toc tinh tien
-                vel.linear.x = 1.0;
-                //toc do goc quay quanh truc z
-                vel.angular.z = 1.0;
-            } else {
-                //van toc tinh tien
-                vel.linear.x = 0.0;
-                //toc do goc quay quanh truc z
-                vel.angular.z = 0.0;
-            }
-            
+            // van toc tinh tien
+            vel.linear.x = 0.0;
+            //toc do goc quay quanh truc z
+            vel.angular.z = 0.0;
             cmd_vel_pub_.publish(vel);
+        }
+
+        void getRobotPose()
+        {
+            geometry_msgs::TransformStamped robot_pose_stamped;
+            try {
+                // Code in try
+                // Param parent, child, 
+                robot_pose_stamped = robot_tf_buffer_.lookupTransform("map", "base_footprint", ros::Time(0));
+            }
+            catch (tf2::TransformException &ex) {
+                ROS_WARN("%s",ex.what());
+                return;
+            }
+
+            // Bien doi transform -> pose2D
+            // x = x, y = y, theta <- quaternion
+            tf2::Transform robot_pose_tf2;
+            tf2::fromMsg(robot_pose_stamped.transform, robot_pose_tf2);
+            double roll, pitch, yall;
+            robot_pose_tf2.getBasis().getRPY(roll, pitch, yall);
+            robot_pose_.theta = yall;
+            robot_pose_.x = robot_pose_stamped.transform.translation.x;
+            robot_pose_.y = robot_pose_stamped.transform.translation.y;
         }
 };

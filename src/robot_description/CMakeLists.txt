@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(robot_controller)
+project(robot_description)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -8,15 +8,12 @@ project(robot_controller)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  actionlib
-  geometry_msgs
-  nav_msgs
-  roscpp
-  std_msgs
-  std_srvs
-  tf2
-  tf2_ros
+  joint_state_publisher
+  robot_controller
+  robot_localization
   robot_msgs
+  robot_simulation
+  robot_state_publisher
 )
 
 ## System dependencies are found with CMake's conventions
@@ -76,7 +73,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   geometry_msgs#   std_msgs
+#   robot_msgs
 # )
 
 ################################################
@@ -109,10 +106,10 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
-#  LIBRARIES robot_controller
-  CATKIN_DEPENDS geometry_msgs nav_msgs roscpp std_msgs std_srvs tf2 actionlib robot_msgs 
-  DEPENDS system_lib
+#  INCLUDE_DIRS include
+#  LIBRARIES robot_description
+#  CATKIN_DEPENDS joint_state_publisher robot_controller robot_localization robot_msgs robot_simulation robot_state_publisher
+#  DEPENDS system_lib
 )
 
 ###########
@@ -122,13 +119,13 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-include
+# include
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/robot_controller.cpp
+#   src/${PROJECT_NAME}/robot_description.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -139,14 +136,7 @@ include
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/robot_controller_node.cpp)
-add_executable(robot_controller_cpp src/robot_controller.cpp)
-target_link_libraries(robot_controller_cpp ${catkin_LIBRARIES})
-add_dependencies(robot_controller_cpp ${catkin_EXPORTED_TARGETS})
-
-add_executable(action_client src/action_client.cpp)
-target_link_libraries(action_client ${catkin_LIBRARIES})
-add_dependencies(action_client ${catkin_EXPORTED_TARGETS})
+# add_executable(${PROJECT_NAME}_node src/robot_description_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -210,7 +200,7 @@ add_dependencies(action_client ${catkin_EXPORTED_TARGETS})
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_robot_controller.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_robot_description.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
