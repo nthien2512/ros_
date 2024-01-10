@@ -67,14 +67,14 @@ set(robot_controller_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(robot_controller_SOURCE_PREFIX /home/hoangdung/ws_utc/ws_utc/src/robot_controller)
-  set(robot_controller_DEVEL_PREFIX /home/hoangdung/ws_utc/ws_utc/devel)
+  set(robot_controller_SOURCE_PREFIX /home/ntdev204/ws_utc/src/robot_controller)
+  set(robot_controller_DEVEL_PREFIX /home/ntdev204/ws_utc/devel)
   set(robot_controller_INSTALL_PREFIX "")
   set(robot_controller_PREFIX ${robot_controller_DEVEL_PREFIX})
 else()
   set(robot_controller_SOURCE_PREFIX "")
   set(robot_controller_DEVEL_PREFIX "")
-  set(robot_controller_INSTALL_PREFIX /home/hoangdung/ws_utc/ws_utc/install)
+  set(robot_controller_INSTALL_PREFIX /home/ntdev204/ws_utc/install)
   set(robot_controller_PREFIX ${robot_controller_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(robot_controller_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/hoangdung/ws_utc/ws_utc/src/robot_controller/include " STREQUAL " ")
+if(NOT "/home/ntdev204/ws_utc/src/robot_controller/include " STREQUAL " ")
   set(robot_controller_INCLUDE_DIRS "")
-  set(_include_dirs "/home/hoangdung/ws_utc/ws_utc/src/robot_controller/include")
+  set(_include_dirs "/home/ntdev204/ws_utc/src/robot_controller/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -110,7 +110,7 @@ if(NOT "/home/hoangdung/ws_utc/ws_utc/src/robot_controller/include " STREQUAL " 
         message(FATAL_ERROR "Project 'robot_controller' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'robot_controller' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/hoangdung/ws_utc/ws_utc/src/robot_controller/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'robot_controller' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/ntdev204/ws_utc/src/robot_controller/${idir}'.  ${_report}")
     endif()
     _list_append_unique(robot_controller_INCLUDE_DIRS ${include})
   endforeach()
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/hoangdung/ws_utc/ws_utc/devel/lib;/home/hoangdung/ws_utc/ws_utc/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/ntdev204/ws_utc/devel/lib;/home/ntdev204/ws_utc/devel/lib;/home/ntdev204/ws/devel/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
@@ -185,7 +185,7 @@ foreach(t ${robot_controller_EXPORTED_TARGETS})
   endif()
 endforeach()
 
-set(depends "geometry_msgs;nav_msgs;roscpp;std_msgs;std_srvs;tf2;actionlib;robot_msgs")
+set(depends "geometry_msgs;nav_msgs;roscpp;std_msgs;std_srvs;tf2;tf2_ros;actionlib;robot_msgs")
 foreach(depend ${depends})
   string(REPLACE " " ";" depend_list ${depend})
   # the package name of the dependency must be kept in a unique variable so that it is not overwritten in recursive calls

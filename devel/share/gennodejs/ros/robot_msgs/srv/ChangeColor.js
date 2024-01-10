@@ -67,7 +67,6 @@ class ChangeColorRequest {
   static messageDefinition() {
     // Returns full string definition for message
     return `
-    # Request
     std_msgs/ColorRGBA color
     
     ================================================================================
@@ -159,7 +158,6 @@ class ChangeColorResponse {
   static messageDefinition() {
     // Returns full string definition for message
     return `
-    # Reponse
     bool success
     string message
     

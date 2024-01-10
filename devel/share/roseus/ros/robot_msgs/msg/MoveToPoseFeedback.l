@@ -56,7 +56,6 @@
 # Feedback
 float32 percentage
 
-
 ")
 
 

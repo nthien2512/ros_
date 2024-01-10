@@ -16,7 +16,7 @@
 
 (defclass robot_msgs::ABC
   :super ros::object
-  :slots (_a _b _c _d _e _f _str _fl32 _fl64 _pose ))
+  :slots (_a _b _c _d _e _f _str _fl32 _fl64 _Pose2D ))
 
 (defmethod robot_msgs::ABC
   (:init
@@ -30,7 +30,7 @@
     ((:str __str) "")
     ((:fl32 __fl32) 0.0)
     ((:fl64 __fl64) 0.0)
-    ((:pose __pose) (instance geometry_msgs::Pose2D :init))
+    ((:Pose2D __Pose2D) (instance geometry_msgs::Pose2D :init))
     )
    (send-super :init)
    (setq _a __a)
@@ -42,7 +42,7 @@
    (setq _str (string __str))
    (setq _fl32 (float __fl32))
    (setq _fl64 (float __fl64))
-   (setq _pose __pose)
+   (setq _Pose2D __Pose2D)
    self)
   (:a
    (&optional (__a :null))
@@ -71,13 +71,13 @@
   (:fl64
    (&optional __fl64)
    (if __fl64 (setq _fl64 __fl64)) _fl64)
-  (:pose
-   (&rest __pose)
-   (if (keywordp (car __pose))
-       (send* _pose __pose)
+  (:Pose2D
+   (&rest __Pose2D)
+   (if (keywordp (car __Pose2D))
+       (send* _Pose2D __Pose2D)
      (progn
-       (if __pose (setq _pose (car __pose)))
-       _pose)))
+       (if __Pose2D (setq _Pose2D (car __Pose2D)))
+       _Pose2D)))
   (:serialization-length
    ()
    (+
@@ -99,8 +99,8 @@
     4
     ;; float64 _fl64
     8
-    ;; geometry_msgs/Pose2D _pose
-    (send _pose :serialization-length)
+    ;; geometry_msgs/Pose2D _Pose2D
+    (send _Pose2D :serialization-length)
     ))
   (:serialize
    (&optional strm)
@@ -134,8 +134,8 @@
        (sys::poke _fl32 (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
      ;; float64 _fl64
        (sys::poke _fl64 (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
-     ;; geometry_msgs/Pose2D _pose
-       (send _pose :serialize s)
+     ;; geometry_msgs/Pose2D _Pose2D
+       (send _Pose2D :serialize s)
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
@@ -169,26 +169,27 @@
      (setq _fl32 (sys::peek buf ptr- :float)) (incf ptr- 4)
    ;; float64 _fl64
      (setq _fl64 (sys::peek buf ptr- :double)) (incf ptr- 8)
-   ;; geometry_msgs/Pose2D _pose
-     (send _pose :deserialize buf ptr-) (incf ptr- (send _pose :serialization-length))
+   ;; geometry_msgs/Pose2D _Pose2D
+     (send _Pose2D :deserialize buf ptr-) (incf ptr- (send _Pose2D :serialization-length))
    ;;
    self)
   )
 
-(setf (get robot_msgs::ABC :md5sum-) "3a1c7f5bfcedddc1533d3732bee5eec7")
+(setf (get robot_msgs::ABC :md5sum-) "7b05110c9cdadde365eb296f5368110c")
 (setf (get robot_msgs::ABC :datatype-) "robot_msgs/ABC")
 (setf (get robot_msgs::ABC :definition-)
       "bool a
-int8 b # => int8_t
-int16 c # => int16_t
+int8 b
+int16 c
 int32 d
 int64 e
 uint8 f
 
-string str # => std::string
-float32 fl32 # => float
-float64 fl64 # => double
-geometry_msgs/Pose2D pose
+string str
+float32 fl32
+float64 fl64
+
+geometry_msgs/Pose2D Pose2D
 ================================================================================
 MSG: geometry_msgs/Pose2D
 # Deprecated
@@ -209,6 +210,6 @@ float64 theta
 
 
 
-(provide :robot_msgs/ABC "3a1c7f5bfcedddc1533d3732bee5eec7")
+(provide :robot_msgs/ABC "7b05110c9cdadde365eb296f5368110c")
 
 

@@ -52,9 +52,9 @@
     :initarg :fl64
     :type cl:float
     :initform 0.0)
-   (pose
-    :reader pose
-    :initarg :pose
+   (Pose2D
+    :reader Pose2D
+    :initarg :Pose2D
     :type geometry_msgs-msg:Pose2D
     :initform (cl:make-instance 'geometry_msgs-msg:Pose2D)))
 )
@@ -112,10 +112,10 @@
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader robot_msgs-msg:fl64-val is deprecated.  Use robot_msgs-msg:fl64 instead.")
   (fl64 m))
 
-(cl:ensure-generic-function 'pose-val :lambda-list '(m))
-(cl:defmethod pose-val ((m <ABC>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader robot_msgs-msg:pose-val is deprecated.  Use robot_msgs-msg:pose instead.")
-  (pose m))
+(cl:ensure-generic-function 'Pose2D-val :lambda-list '(m))
+(cl:defmethod Pose2D-val ((m <ABC>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader robot_msgs-msg:Pose2D-val is deprecated.  Use robot_msgs-msg:Pose2D instead.")
+  (Pose2D m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <ABC>) ostream)
   "Serializes a message object of type '<ABC>"
   (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:if (cl:slot-value msg 'a) 1 0)) ostream)
@@ -163,7 +163,7 @@
     (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
-  (roslisp-msg-protocol:serialize (cl:slot-value msg 'pose) ostream)
+  (roslisp-msg-protocol:serialize (cl:slot-value msg 'Pose2D) ostream)
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <ABC>) istream)
   "Deserializes a message object of type '<ABC>"
@@ -216,7 +216,7 @@
       (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
     (cl:setf (cl:slot-value msg 'fl64) (roslisp-utils:decode-double-float-bits bits)))
-  (roslisp-msg-protocol:deserialize (cl:slot-value msg 'pose) istream)
+  (roslisp-msg-protocol:deserialize (cl:slot-value msg 'Pose2D) istream)
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<ABC>)))
@@ -227,16 +227,16 @@
   "robot_msgs/ABC")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<ABC>)))
   "Returns md5sum for a message object of type '<ABC>"
-  "3a1c7f5bfcedddc1533d3732bee5eec7")
+  "7b05110c9cdadde365eb296f5368110c")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'ABC)))
   "Returns md5sum for a message object of type 'ABC"
-  "3a1c7f5bfcedddc1533d3732bee5eec7")
+  "7b05110c9cdadde365eb296f5368110c")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<ABC>)))
   "Returns full string definition for message of type '<ABC>"
-  (cl:format cl:nil "bool a~%int8 b # => int8_t~%int16 c # => int16_t~%int32 d~%int64 e~%uint8 f~%~%string str # => std::string~%float32 fl32 # => float~%float64 fl64 # => double~%geometry_msgs/Pose2D pose~%================================================================================~%MSG: geometry_msgs/Pose2D~%# Deprecated~%# Please use the full 3D pose.~%~%# In general our recommendation is to use a full 3D representation of everything and for 2D specific applications make the appropriate projections into the plane for their calculations but optimally will preserve the 3D information during processing.~%~%# If we have parallel copies of 2D datatypes every UI and other pipeline will end up needing to have dual interfaces to plot everything. And you will end up with not being able to use 3D tools for 2D use cases even if they're completely valid, as you'd have to reimplement it with different inputs and outputs. It's not particularly hard to plot the 2D pose or compute the yaw error for the Pose message and there are already tools and libraries that can do this for you.~%~%~%# This expresses a position and orientation on a 2D manifold.~%~%float64 x~%float64 y~%float64 theta~%~%~%"))
+  (cl:format cl:nil "bool a~%int8 b~%int16 c~%int32 d~%int64 e~%uint8 f~%~%string str~%float32 fl32~%float64 fl64~%~%geometry_msgs/Pose2D Pose2D~%================================================================================~%MSG: geometry_msgs/Pose2D~%# Deprecated~%# Please use the full 3D pose.~%~%# In general our recommendation is to use a full 3D representation of everything and for 2D specific applications make the appropriate projections into the plane for their calculations but optimally will preserve the 3D information during processing.~%~%# If we have parallel copies of 2D datatypes every UI and other pipeline will end up needing to have dual interfaces to plot everything. And you will end up with not being able to use 3D tools for 2D use cases even if they're completely valid, as you'd have to reimplement it with different inputs and outputs. It's not particularly hard to plot the 2D pose or compute the yaw error for the Pose message and there are already tools and libraries that can do this for you.~%~%~%# This expresses a position and orientation on a 2D manifold.~%~%float64 x~%float64 y~%float64 theta~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'ABC)))
   "Returns full string definition for message of type 'ABC"
-  (cl:format cl:nil "bool a~%int8 b # => int8_t~%int16 c # => int16_t~%int32 d~%int64 e~%uint8 f~%~%string str # => std::string~%float32 fl32 # => float~%float64 fl64 # => double~%geometry_msgs/Pose2D pose~%================================================================================~%MSG: geometry_msgs/Pose2D~%# Deprecated~%# Please use the full 3D pose.~%~%# In general our recommendation is to use a full 3D representation of everything and for 2D specific applications make the appropriate projections into the plane for their calculations but optimally will preserve the 3D information during processing.~%~%# If we have parallel copies of 2D datatypes every UI and other pipeline will end up needing to have dual interfaces to plot everything. And you will end up with not being able to use 3D tools for 2D use cases even if they're completely valid, as you'd have to reimplement it with different inputs and outputs. It's not particularly hard to plot the 2D pose or compute the yaw error for the Pose message and there are already tools and libraries that can do this for you.~%~%~%# This expresses a position and orientation on a 2D manifold.~%~%float64 x~%float64 y~%float64 theta~%~%~%"))
+  (cl:format cl:nil "bool a~%int8 b~%int16 c~%int32 d~%int64 e~%uint8 f~%~%string str~%float32 fl32~%float64 fl64~%~%geometry_msgs/Pose2D Pose2D~%================================================================================~%MSG: geometry_msgs/Pose2D~%# Deprecated~%# Please use the full 3D pose.~%~%# In general our recommendation is to use a full 3D representation of everything and for 2D specific applications make the appropriate projections into the plane for their calculations but optimally will preserve the 3D information during processing.~%~%# If we have parallel copies of 2D datatypes every UI and other pipeline will end up needing to have dual interfaces to plot everything. And you will end up with not being able to use 3D tools for 2D use cases even if they're completely valid, as you'd have to reimplement it with different inputs and outputs. It's not particularly hard to plot the 2D pose or compute the yaw error for the Pose message and there are already tools and libraries that can do this for you.~%~%~%# This expresses a position and orientation on a 2D manifold.~%~%float64 x~%float64 y~%float64 theta~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <ABC>))
   (cl:+ 0
      1
@@ -248,7 +248,7 @@
      4 (cl:length (cl:slot-value msg 'str))
      4
      8
-     (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'pose))
+     (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'Pose2D))
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <ABC>))
   "Converts a ROS message object to a list"
@@ -262,5 +262,5 @@
     (cl:cons ':str (str msg))
     (cl:cons ':fl32 (fl32 msg))
     (cl:cons ':fl64 (fl64 msg))
-    (cl:cons ':pose (pose msg))
+    (cl:cons ':Pose2D (Pose2D msg))
 ))

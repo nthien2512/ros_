@@ -103,11 +103,10 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
-  # LIBRARIES robot_msgs
+  INCLUDE_DIRS ${CATKIN_DEVEL_PREFIX}/include
   CATKIN_DEPENDS geometry_msgs nav_msgs sensor_msgs std_msgs visualization_msgs message_runtime
-#  DEPENDS system_lib
 )
+
 
 ###########
 ## Build ##

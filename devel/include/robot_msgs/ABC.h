@@ -8,7 +8,7 @@
 
 #include <string>
 #include <vector>
-#include <map>
+#include <memory>
 
 #include <ros/types.h>
 #include <ros/serialization.h>
@@ -34,7 +34,7 @@ struct ABC_
     , str()
     , fl32(0.0)
     , fl64(0.0)
-    , pose()  {
+    , Pose2D()  {
     }
   ABC_(const ContainerAllocator& _alloc)
     : a(false)
@@ -46,7 +46,7 @@ struct ABC_
     , str(_alloc)
     , fl32(0.0)
     , fl64(0.0)
-    , pose(_alloc)  {
+    , Pose2D(_alloc)  {
   (void)_alloc;
     }
 
@@ -70,7 +70,7 @@ struct ABC_
    typedef uint8_t _f_type;
   _f_type f;
 
-   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _str_type;
+   typedef std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>> _str_type;
   _str_type str;
 
    typedef float _fl32_type;
@@ -79,8 +79,8 @@ struct ABC_
    typedef double _fl64_type;
   _fl64_type fl64;
 
-   typedef  ::geometry_msgs::Pose2D_<ContainerAllocator>  _pose_type;
-  _pose_type pose;
+   typedef  ::geometry_msgs::Pose2D_<ContainerAllocator>  _Pose2D_type;
+  _Pose2D_type Pose2D;
 
 
 
@@ -120,7 +120,7 @@ bool operator==(const ::robot_msgs::ABC_<ContainerAllocator1> & lhs, const ::rob
     lhs.str == rhs.str &&
     lhs.fl32 == rhs.fl32 &&
     lhs.fl64 == rhs.fl64 &&
-    lhs.pose == rhs.pose;
+    lhs.Pose2D == rhs.Pose2D;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -177,12 +177,12 @@ struct MD5Sum< ::robot_msgs::ABC_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "3a1c7f5bfcedddc1533d3732bee5eec7";
+    return "7b05110c9cdadde365eb296f5368110c";
   }
 
   static const char* value(const ::robot_msgs::ABC_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x3a1c7f5bfcedddc1ULL;
-  static const uint64_t static_value2 = 0x533d3732bee5eec7ULL;
+  static const uint64_t static_value1 = 0x7b05110c9cdadde3ULL;
+  static const uint64_t static_value2 = 0x65eb296f5368110cULL;
 };
 
 template<class ContainerAllocator>
@@ -202,16 +202,17 @@ struct Definition< ::robot_msgs::ABC_<ContainerAllocator> >
   static const char* value()
   {
     return "bool a\n"
-"int8 b # => int8_t\n"
-"int16 c # => int16_t\n"
+"int8 b\n"
+"int16 c\n"
 "int32 d\n"
 "int64 e\n"
 "uint8 f\n"
 "\n"
-"string str # => std::string\n"
-"float32 fl32 # => float\n"
-"float64 fl64 # => double\n"
-"geometry_msgs/Pose2D pose\n"
+"string str\n"
+"float32 fl32\n"
+"float64 fl64\n"
+"\n"
+"geometry_msgs/Pose2D Pose2D\n"
 "================================================================================\n"
 "MSG: geometry_msgs/Pose2D\n"
 "# Deprecated\n"
@@ -254,7 +255,7 @@ namespace serialization
       stream.next(m.str);
       stream.next(m.fl32);
       stream.next(m.fl64);
-      stream.next(m.pose);
+      stream.next(m.Pose2D);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -286,14 +287,14 @@ struct Printer< ::robot_msgs::ABC_<ContainerAllocator> >
     s << indent << "f: ";
     Printer<uint8_t>::stream(s, indent + "  ", v.f);
     s << indent << "str: ";
-    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.str);
+    Printer<std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>>>::stream(s, indent + "  ", v.str);
     s << indent << "fl32: ";
     Printer<float>::stream(s, indent + "  ", v.fl32);
     s << indent << "fl64: ";
     Printer<double>::stream(s, indent + "  ", v.fl64);
-    s << indent << "pose: ";
+    s << indent << "Pose2D: ";
     s << std::endl;
-    Printer< ::geometry_msgs::Pose2D_<ContainerAllocator> >::stream(s, indent + "  ", v.pose);
+    Printer< ::geometry_msgs::Pose2D_<ContainerAllocator> >::stream(s, indent + "  ", v.Pose2D);
   }
 };
 

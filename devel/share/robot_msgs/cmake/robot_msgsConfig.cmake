@@ -67,14 +67,14 @@ set(robot_msgs_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(robot_msgs_SOURCE_PREFIX /home/hoangdung/ws_utc/ws_utc/src/robot_msgs)
-  set(robot_msgs_DEVEL_PREFIX /home/hoangdung/ws_utc/ws_utc/devel)
+  set(robot_msgs_SOURCE_PREFIX /home/ntdev204/ws_utc/src/robot_msgs)
+  set(robot_msgs_DEVEL_PREFIX /home/ntdev204/ws_utc/devel)
   set(robot_msgs_INSTALL_PREFIX "")
   set(robot_msgs_PREFIX ${robot_msgs_DEVEL_PREFIX})
 else()
   set(robot_msgs_SOURCE_PREFIX "")
   set(robot_msgs_DEVEL_PREFIX "")
-  set(robot_msgs_INSTALL_PREFIX /home/hoangdung/ws_utc/ws_utc/install)
+  set(robot_msgs_INSTALL_PREFIX /home/ntdev204/ws_utc/install)
   set(robot_msgs_PREFIX ${robot_msgs_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(robot_msgs_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/hoangdung/ws_utc/ws_utc/devel/include;/home/hoangdung/ws_utc/ws_utc/src/robot_msgs/include " STREQUAL " ")
+if(NOT "/home/ntdev204/ws_utc/devel/include " STREQUAL " ")
   set(robot_msgs_INCLUDE_DIRS "")
-  set(_include_dirs "/home/hoangdung/ws_utc/ws_utc/devel/include;/home/hoangdung/ws_utc/ws_utc/src/robot_msgs/include")
+  set(_include_dirs "/home/ntdev204/ws_utc/devel/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -110,7 +110,7 @@ if(NOT "/home/hoangdung/ws_utc/ws_utc/devel/include;/home/hoangdung/ws_utc/ws_ut
         message(FATAL_ERROR "Project 'robot_msgs' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'robot_msgs' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/hoangdung/ws_utc/ws_utc/src/robot_msgs/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'robot_msgs' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/ntdev204/ws_utc/src/robot_msgs/${idir}'.  ${_report}")
     endif()
     _list_append_unique(robot_msgs_INCLUDE_DIRS ${include})
   endforeach()
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/hoangdung/ws_utc/ws_utc/devel/lib;/home/hoangdung/ws_utc/ws_utc/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/ntdev204/ws_utc/devel/lib;/home/ntdev204/ws_utc/devel/lib;/home/ntdev204/ws/devel/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

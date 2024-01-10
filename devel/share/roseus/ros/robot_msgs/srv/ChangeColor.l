@@ -124,8 +124,7 @@
 (setf (get robot_msgs::ChangeColorRequest :md5sum-) "b6666a3f837cecf81b427d119a6ab66e")
 (setf (get robot_msgs::ChangeColorRequest :datatype-) "robot_msgs/ChangeColorRequest")
 (setf (get robot_msgs::ChangeColorRequest :definition-)
-      "# Request
-std_msgs/ColorRGBA color
+      "std_msgs/ColorRGBA color
 
 ================================================================================
 MSG: std_msgs/ColorRGBA
@@ -134,7 +133,6 @@ float32 g
 float32 b
 float32 a
 ---
-# Reponse
 bool success
 string message
 
@@ -143,8 +141,7 @@ string message
 (setf (get robot_msgs::ChangeColorResponse :md5sum-) "b6666a3f837cecf81b427d119a6ab66e")
 (setf (get robot_msgs::ChangeColorResponse :datatype-) "robot_msgs/ChangeColorResponse")
 (setf (get robot_msgs::ChangeColorResponse :definition-)
-      "# Request
-std_msgs/ColorRGBA color
+      "std_msgs/ColorRGBA color
 
 ================================================================================
 MSG: std_msgs/ColorRGBA
@@ -153,7 +150,6 @@ float32 g
 float32 b
 float32 a
 ---
-# Reponse
 bool success
 string message
 

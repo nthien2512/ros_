@@ -111,7 +111,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
   INCLUDE_DIRS include
 #  LIBRARIES robot_controller
-  CATKIN_DEPENDS geometry_msgs nav_msgs roscpp std_msgs std_srvs tf2 actionlib robot_msgs 
+  CATKIN_DEPENDS geometry_msgs nav_msgs roscpp std_msgs std_srvs tf2 tf2_ros actionlib robot_msgs 
   DEPENDS system_lib
 )
 
@@ -140,9 +140,9 @@ include
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/robot_controller_node.cpp)
-add_executable(robot_controller_cpp src/robot_controller.cpp)
-target_link_libraries(robot_controller_cpp ${catkin_LIBRARIES})
-add_dependencies(robot_controller_cpp ${catkin_EXPORTED_TARGETS})
+add_executable(rb_ctl src/robot_controller.cpp)
+target_link_libraries(rb_ctl ${catkin_LIBRARIES})
+add_dependencies(rb_ctl ${catkin_EXPORTED_TARGETS})
 
 add_executable(action_client src/action_client.cpp)
 target_link_libraries(action_client ${catkin_LIBRARIES})

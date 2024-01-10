@@ -2,21 +2,21 @@
 "use strict";
 
 let ABC = require('./ABC.js');
-let MoveToPoseActionFeedback = require('./MoveToPoseActionFeedback.js');
-let MoveToPoseFeedback = require('./MoveToPoseFeedback.js');
 let MoveToPoseActionGoal = require('./MoveToPoseActionGoal.js');
+let MoveToPoseActionFeedback = require('./MoveToPoseActionFeedback.js');
 let MoveToPoseActionResult = require('./MoveToPoseActionResult.js');
-let MoveToPoseResult = require('./MoveToPoseResult.js');
-let MoveToPoseGoal = require('./MoveToPoseGoal.js');
 let MoveToPoseAction = require('./MoveToPoseAction.js');
+let MoveToPoseResult = require('./MoveToPoseResult.js');
+let MoveToPoseFeedback = require('./MoveToPoseFeedback.js');
+let MoveToPoseGoal = require('./MoveToPoseGoal.js');
 
 module.exports = {
   ABC: ABC,
-  MoveToPoseActionFeedback: MoveToPoseActionFeedback,
-  MoveToPoseFeedback: MoveToPoseFeedback,
   MoveToPoseActionGoal: MoveToPoseActionGoal,
+  MoveToPoseActionFeedback: MoveToPoseActionFeedback,
   MoveToPoseActionResult: MoveToPoseActionResult,
-  MoveToPoseResult: MoveToPoseResult,
-  MoveToPoseGoal: MoveToPoseGoal,
   MoveToPoseAction: MoveToPoseAction,
+  MoveToPoseResult: MoveToPoseResult,
+  MoveToPoseFeedback: MoveToPoseFeedback,
+  MoveToPoseGoal: MoveToPoseGoal,
 };

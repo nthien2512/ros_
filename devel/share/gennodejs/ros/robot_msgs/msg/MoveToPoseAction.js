@@ -213,7 +213,6 @@ class MoveToPoseAction {
     # Feedback
     float32 percentage
     
-    
     `;
   }
 

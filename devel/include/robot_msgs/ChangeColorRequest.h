@@ -8,7 +8,7 @@
 
 #include <string>
 #include <vector>
-#include <map>
+#include <memory>
 
 #include <ros/types.h>
 #include <ros/serialization.h>
@@ -147,8 +147,7 @@ struct Definition< ::robot_msgs::ChangeColorRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "# Request\n"
-"std_msgs/ColorRGBA color\n"
+    return "std_msgs/ColorRGBA color\n"
 "\n"
 "================================================================================\n"
 "MSG: std_msgs/ColorRGBA\n"

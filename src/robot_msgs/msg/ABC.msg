@@ -1,11 +1,12 @@
 bool a
-int8 b # => int8_t
-int16 c # => int16_t
+int8 b
+int16 c
 int32 d
 int64 e
 uint8 f
 
-string str # => std::string
-float32 fl32 # => float
-float64 fl64 # => double
-geometry_msgs/Pose2D pose
+string str
+float32 fl32
+float64 fl64
+
+geometry_msgs/Pose2D Pose2D

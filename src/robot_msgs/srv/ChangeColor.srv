@@ -1,6 +1,4 @@
-# Request
 std_msgs/ColorRGBA color
 ---
-# Reponse
 bool success
 string message

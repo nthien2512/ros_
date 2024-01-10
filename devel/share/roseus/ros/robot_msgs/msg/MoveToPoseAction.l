@@ -207,7 +207,6 @@ MSG: robot_msgs/MoveToPoseFeedback
 # Feedback
 float32 percentage
 
-
 ")
 
 

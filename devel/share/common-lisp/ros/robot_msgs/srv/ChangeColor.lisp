@@ -49,10 +49,10 @@
   "b6666a3f837cecf81b427d119a6ab66e")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<ChangeColor-request>)))
   "Returns full string definition for message of type '<ChangeColor-request>"
-  (cl:format cl:nil "# Request~%std_msgs/ColorRGBA color~%~%================================================================================~%MSG: std_msgs/ColorRGBA~%float32 r~%float32 g~%float32 b~%float32 a~%~%~%"))
+  (cl:format cl:nil "std_msgs/ColorRGBA color~%~%================================================================================~%MSG: std_msgs/ColorRGBA~%float32 r~%float32 g~%float32 b~%float32 a~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'ChangeColor-request)))
   "Returns full string definition for message of type 'ChangeColor-request"
-  (cl:format cl:nil "# Request~%std_msgs/ColorRGBA color~%~%================================================================================~%MSG: std_msgs/ColorRGBA~%float32 r~%float32 g~%float32 b~%float32 a~%~%~%"))
+  (cl:format cl:nil "std_msgs/ColorRGBA color~%~%================================================================================~%MSG: std_msgs/ColorRGBA~%float32 r~%float32 g~%float32 b~%float32 a~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <ChangeColor-request>))
   (cl:+ 0
      (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'color))
@@ -131,10 +131,10 @@
   "b6666a3f837cecf81b427d119a6ab66e")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<ChangeColor-response>)))
   "Returns full string definition for message of type '<ChangeColor-response>"
-  (cl:format cl:nil "# Reponse~%bool success~%string message~%~%~%~%"))
+  (cl:format cl:nil "bool success~%string message~%~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'ChangeColor-response)))
   "Returns full string definition for message of type 'ChangeColor-response"
-  (cl:format cl:nil "# Reponse~%bool success~%string message~%~%~%~%"))
+  (cl:format cl:nil "bool success~%string message~%~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <ChangeColor-response>))
   (cl:+ 0
      1

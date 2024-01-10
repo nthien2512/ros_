@@ -28,7 +28,7 @@ class ABC {
       this.str = null;
       this.fl32 = null;
       this.fl64 = null;
-      this.pose = null;
+      this.Pose2D = null;
     }
     else {
       if (initObj.hasOwnProperty('a')) {
@@ -85,11 +85,11 @@ class ABC {
       else {
         this.fl64 = 0.0;
       }
-      if (initObj.hasOwnProperty('pose')) {
-        this.pose = initObj.pose
+      if (initObj.hasOwnProperty('Pose2D')) {
+        this.Pose2D = initObj.Pose2D
       }
       else {
-        this.pose = new geometry_msgs.msg.Pose2D();
+        this.Pose2D = new geometry_msgs.msg.Pose2D();
       }
     }
   }
@@ -114,8 +114,8 @@ class ABC {
     bufferOffset = _serializer.float32(obj.fl32, buffer, bufferOffset);
     // Serialize message field [fl64]
     bufferOffset = _serializer.float64(obj.fl64, buffer, bufferOffset);
-    // Serialize message field [pose]
-    bufferOffset = geometry_msgs.msg.Pose2D.serialize(obj.pose, buffer, bufferOffset);
+    // Serialize message field [Pose2D]
+    bufferOffset = geometry_msgs.msg.Pose2D.serialize(obj.Pose2D, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -141,8 +141,8 @@ class ABC {
     data.fl32 = _deserializer.float32(buffer, bufferOffset);
     // Deserialize message field [fl64]
     data.fl64 = _deserializer.float64(buffer, bufferOffset);
-    // Deserialize message field [pose]
-    data.pose = geometry_msgs.msg.Pose2D.deserialize(buffer, bufferOffset);
+    // Deserialize message field [Pose2D]
+    data.Pose2D = geometry_msgs.msg.Pose2D.deserialize(buffer, bufferOffset);
     return data;
   }
 
@@ -159,23 +159,24 @@ class ABC {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '3a1c7f5bfcedddc1533d3732bee5eec7';
+    return '7b05110c9cdadde365eb296f5368110c';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
     bool a
-    int8 b # => int8_t
-    int16 c # => int16_t
+    int8 b
+    int16 c
     int32 d
     int64 e
     uint8 f
     
-    string str # => std::string
-    float32 fl32 # => float
-    float64 fl64 # => double
-    geometry_msgs/Pose2D pose
+    string str
+    float32 fl32
+    float64 fl64
+    
+    geometry_msgs/Pose2D Pose2D
     ================================================================================
     MSG: geometry_msgs/Pose2D
     # Deprecated
@@ -264,11 +265,11 @@ class ABC {
       resolved.fl64 = 0.0
     }
 
-    if (msg.pose !== undefined) {
-      resolved.pose = geometry_msgs.msg.Pose2D.Resolve(msg.pose)
+    if (msg.Pose2D !== undefined) {
+      resolved.Pose2D = geometry_msgs.msg.Pose2D.Resolve(msg.Pose2D)
     }
     else {
-      resolved.pose = new geometry_msgs.msg.Pose2D()
+      resolved.Pose2D = new geometry_msgs.msg.Pose2D()
     }
 
     return resolved;

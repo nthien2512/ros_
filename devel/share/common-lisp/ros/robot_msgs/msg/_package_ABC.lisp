@@ -17,6 +17,6 @@
           FL32
           FL64-VAL
           FL64
-          POSE-VAL
-          POSE
+          POSE2D-VAL
+          POSE2D
 ))
